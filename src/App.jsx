@@ -7,16 +7,8 @@ import './App.css'
 
 function App() {
   let [postName, setPostName] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
-  // let [likes, setLikes] = useState(0);
+  let [likes, setLikes] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
-
-  let likes = [];
-  let setLikes = [];
-  for (let i = 0; i < postName.length; i++) {
-    let [like, setLike] = useState(0);
-    likes.push(like);
-    setLikes.push(setLike);
-  }
 
   return (
     <div className = "App">
@@ -49,7 +41,11 @@ function App() {
             <div className = "list" key = {i}>
               <h4 onClick = { () => {setModal(!modal)}}> 
                 {postName[i]} 
-                <span onClick = { () => { setLikes[i](likes[i] + 1) } }>👍</span> {likes[i]} 
+                <span onClick = { () => { 
+                  let copy = [...likes];
+                  copy[i] += 1;
+                  setLikes(copy);
+                  } }>👍</span> {likes[i]} 
               </h4>
               <p>날짜</p>
             </div>)
