@@ -7,7 +7,16 @@ import './App.css'
 
 function App() {
   let [postName, setPostName] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
-  let [likes, setLikes] = useState(0);
+  // let [likes, setLikes] = useState(0);
+  let [modal, setModal] = useState(false);
+
+  let likes = [];
+  let setLikes = [];
+  for (let i = 0; i < postName.length; i++) {
+    let [like, setLike] = useState(0);
+    likes.push(like);
+    setLikes.push(setLike);
+  }
 
   return (
     <div className = "App">
@@ -34,21 +43,22 @@ function App() {
         setPostName(copy);
       } }>가나다 정렬</button>
 
+      {
+        postName.map(function(a, i) {
+          return (
+            <div className = "list" key = {i}>
+              <h4 onClick = { () => {setModal(!modal)}}> 
+                {postName[i]} 
+                <span onClick = { () => { setLikes[i](likes[i] + 1) } }>👍</span> {likes[i]} 
+              </h4>
+              <p>날짜</p>
+            </div>)
+        })
+      }
 
-      <div className = "list">
-        <h3>{postName[0]} <span onClick={() => { setLikes( likes + 1 ) }}>👍</span> {likes} </h3>
-        <p>날짜</p>
-      </div>
-      <div className = "list">
-        <h3>{postName[1]}</h3>
-        <p>날짜</p>
-      </div>
-      <div className = "list">
-        <h3>{postName[2]}</h3>
-        <p>날짜</p>
-      </div>
-
-      <Modal></Modal>
+      {
+        modal == true ? <Modal></Modal> : null
+      }
     </div>
   )
 }
