@@ -9,13 +9,16 @@ function App() {
   let [modal, setModal] = useState(false);
   let [clickedTitleIndex, setclickedTitleIndex] = useState(0);
   let [textInput, setTextInput] = useState('');
-
+  let [date, setDate] = useState(['2021-03-24', '2021-02-12', '2020-12-30']);
+ 
   return (
     <div className = "App">
       <div className = "black-nav">
         <h4>지현이의 블로그</h4>
       </div>
-
+      {
+        modal == true ? <Modal postTitle={postTitle} clickedTitleIndex={clickedTitleIndex}></Modal> : null
+      }
       {
         postTitle.map(function(a, i) {
           return (
@@ -37,7 +40,7 @@ function App() {
                   } }> 👍</span> 
                 {likes[i]} 
               </h4>
-              <p>날짜</p>
+              <p>{date[i]}</p>
               <button onClick = { () => {
                 let copyPostTitle = [...postTitle];
                 copyPostTitle.splice(i, 1);
@@ -46,6 +49,10 @@ function App() {
                 let copyLikes = [...likes];
                 copyLikes.splice(i, 1);
                 setLikes(copyLikes);
+
+                let copyDate = [...date];
+                copyDate.splice(i, 1);
+                setDate(copyDate);
               }}>삭제</button>
             </div>)
         })
@@ -58,19 +65,18 @@ function App() {
         <button onClick = { () => {
           const newTitle = textInput.trim();
           if (newTitle !== '') {
-            let copyPostTitle = [newTitle, ...postTitle];
-            setPostTitle(copyPostTitle);
+            let newPostTitle = [newTitle, ...postTitle];
+            setPostTitle(newPostTitle);
 
-            let copyLikes = [0, ...likes];
-            setLikes(copyLikes);
+            let newLikes = [0, ...likes];
+            setLikes(newLikes);
+
+            const d = new Date();
+            let newDate = [d.toISOString().split('T')[0], ...date];
+            setDate(newDate);
           }
-   
         }}>글 발행</button>
       </div>
-
-      {
-        modal == true ? <Modal postTitle={postTitle} clickedTitleIndex={clickedTitleIndex}></Modal> : null
-      }
     </div>
   )
 }
