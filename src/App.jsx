@@ -7,7 +7,7 @@ function App() {
   let [postName, setPostName] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
   let [likes, setLikes] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
-  let [clickedIndex, setClickedIndex] = useState(0);
+  let [clickedTitle, setclickedTitle] = useState(0);
 
   return (
     <div className = "App">
@@ -20,7 +20,7 @@ function App() {
           return (
             <div className = "list" key = {i}>
               <h4 onClick = { () => {
-                setClickedIndex(i);
+                setclickedTitle(i);
                 setModal(!modal)}}> 
                 {postName[i]} 
                 <span onClick = { () => { 
@@ -36,7 +36,7 @@ function App() {
       }
 
       {
-        modal == true ? <Modal postName={postName} setPostName={setPostName} clickedIndex={clickedIndex}></Modal> : null
+        modal == true ? <Modal postName={postName} clickedTitle={clickedTitle}></Modal> : null
       }
     </div>
   )
@@ -45,7 +45,7 @@ function App() {
 function Modal(props) {
   return (
     <div className = "modal">
-      <h4>{ props.postName[props.clickedIndex] }</h4>
+      <h4>{ props.postName[props.clickedTitle] }</h4>
       <p>날짜</p>
       <p>상세내용</p>
       <button>글 수정</button>
