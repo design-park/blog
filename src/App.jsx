@@ -39,9 +39,13 @@ function App() {
               </h4>
               <p>날짜</p>
               <button onClick = { () => {
-                let copy = [...postTitle];
-                copy.splice(i, 1);
-                setPostTitle(copy);
+                let copyPostTitle = [...postTitle];
+                copyPostTitle.splice(i, 1);
+                setPostTitle(copyPostTitle);
+
+                let copyLikes = [...likes];
+                copyLikes.splice(i, 1);
+                setLikes(copyLikes);
               }}>삭제</button>
             </div>)
         })
@@ -54,8 +58,11 @@ function App() {
         <button onClick = { () => {
           const newTitle = textInput.trim();
           if (newTitle !== '') {
-            let copy = [newTitle, ...postTitle];
-            setPostTitle(copy);
+            let copyPostTitle = [newTitle, ...postTitle];
+            setPostTitle(copyPostTitle);
+
+            let copyLikes = [0, ...likes];
+            setLikes(copyLikes);
           }
    
         }}>글 발행</button>
