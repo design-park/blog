@@ -50,11 +50,14 @@ function App() {
       <div className="post">
         <input onChange ={ (e) => {
           setTextInput(e.target.value);
-        }}/>
+        }} required />
         <button onClick = { () => {
-          let copy = [...postTitle];
-          copy.unshift(textInput);
-          setPostTitle(copy);
+          const newTitle = textInput.trim();
+          if (newTitle !== '') {
+            let copy = [newTitle, ...postTitle];
+            setPostTitle(copy);
+          }
+   
         }}>글 발행</button>
       </div>
 
