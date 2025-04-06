@@ -4,15 +4,16 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  let [postTitle, setpostTitle] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
+  let [postTitle, setPostTitle] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
   let [likes, setLikes] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [clickedTitleIndex, setclickedTitleIndex] = useState(0);
+  let [textInput, setTextInput] = useState('');
 
   return (
     <div className = "App">
       <div className = "black-nav">
-        <h4>블로그임</h4>
+        <h4>지현이의 블로그</h4>
       </div>
 
       {
@@ -37,9 +38,25 @@ function App() {
                 {likes[i]} 
               </h4>
               <p>날짜</p>
+              <button onClick = { () => {
+                let copy = [...postTitle];
+                copy.splice(i, 1);
+                setPostTitle(copy);
+              }}>삭제</button>
             </div>)
         })
       }
+
+      <div className="post">
+        <input onChange ={ (e) => {
+          setTextInput(e.target.value);
+        }}/>
+        <button onClick = { () => {
+          let copy = [...postTitle];
+          copy.unshift(textInput);
+          setPostTitle(copy);
+        }}>글 발행</button>
+      </div>
 
       {
         modal == true ? <Modal postTitle={postTitle} clickedTitleIndex={clickedTitleIndex}></Modal> : null
@@ -54,7 +71,7 @@ function Modal(props) {
       <h4>{ props.postTitle[props.clickedTitleIndex] }</h4>
       <p>날짜</p>
       <p>상세내용</p>
-      <button>글 수정</button>
+      <button onClick>수정</button>
     </div>
   )
 }
