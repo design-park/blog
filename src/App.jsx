@@ -23,7 +23,8 @@ function App() {
                 setclickedTitle(i);
                 setModal(!modal)}}> 
                 {postName[i]} 
-                <span onClick = { () => { 
+                <span onClick = { (e) => { 
+                  e.stopPropagation(); // 부모 요소의 onClick 이벤트가 발생하지 않도록 함
                   let copy = [...likes];
                   copy[i] += 1;
                   setLikes(copy);
@@ -41,7 +42,7 @@ function App() {
     </div>
   )
 }
-
+/*
 function Modal(props) {
   return (
     <div className = "modal">
@@ -52,21 +53,20 @@ function Modal(props) {
     </div>
   )
 }
+*/
 
-/*
 function Modal(props) {
-  let [copy, setCopy] = useState([...props.postName]);
+  let [clicked, setClicked] = useState(false);
   return (
     <div className = "modal">
-      <h4>{ copy[0] }</h4>
+      <h4>{ clicked ? "Clicked" : props.postName[props.clickedTitle] }</h4>
       <p>날짜</p>
       <p>상세내용</p>
       <button onClick = { () => {
-        copy[0] = '여자 코트 추천';
-        setCopy(copy);
+        setClicked(true);
        }}>글 수정</button>
     </div>
   )
 }
-*/
+
 export default App
